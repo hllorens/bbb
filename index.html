@@ -1,0 +1,406 @@
+<!DOCTYPE html> 
+<html>
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-3106165-7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-3106165-7');
+    </script>
+    
+  <title>When will the Bitcoin Bubble burst?</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="description" content="When will the bitcoin bubble burst">
+  <meta name="keywords" content="Bitcoin, bubble, burst, crash, crypto, blockchain">
+  <link rel="stylesheet" href="index.css">
+  <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+  <link rel="icon" href="./favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+<div id="page">
+	<div id="header">
+    <div id="header_basic">
+        <a id="hamburger_icon" onclick="hamburger_toggle(event)"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M2 6h20v3H2zm0 5h20v3H2zm0 5h20v3H2z"/></svg></a>
+        <span id="header_text"><span style="color:#eee">Bitcoin Burst Prediction</span></span>
+    </div>
+    </div>
+	<div id="zone_canvas" class="canvas-with-header">
+        <!-- bitcoin-auto -->
+        <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-1143362957092180"
+         data-ad-slot="1004680864"
+         data-ad-format="auto"></ins>
+		<div class="vertical-center-container">
+			<div id="zone_canvas_vcentered" class="vertical-center-content">...loading...</div>
+        </div>
+
+	</div>
+	<nav class="hamburger_menu" id="hamburger_menu">
+		<a class="boxclose" id="hamburger_close"></a>
+		<h2>Menu</h2>
+		<div id="hamburger_menu_content"></div>
+	</nav>
+
+
+</div>
+
+
+<!-- scripts -->
+<script src="./firebase-3.6.4.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBS048aqiR4UswsNSzM6uciP-XOYr71xjo",
+    authDomain: "when-will-bitcoin-bubble-burst.firebaseapp.com",
+    databaseURL: "https://when-will-bitcoin-bubble-burst.firebaseio.com",
+    projectId: "when-will-bitcoin-bubble-burst",
+    storageBucket: "",
+    messagingSenderId: "243341756610"
+  };
+  firebase.initializeApp(config);
+</script>
+
+<script>
+"use strict";
+var user_data={};
+
+
+// QUERY STRING location.search
+var get_query_string = function () {
+	var query_string = {};
+	var query = window.location.search.substring(1); // query except ?
+	var vars = query.split("&");
+	for (var i=0;i < vars.length;i++) {
+		var pair = vars[i].split("=");
+		query_string[pair[0]] = pair[1];
+	}
+	return query_string;
+};
+
+// enabling debug possibility
+var QueryString=get_query_string();
+var debug=false;
+if(QueryString.hasOwnProperty('debug') && QueryString.debug=='true') debug=true;
+
+// Turn it on - assign the function that returns the string
+var preventBackExit=function(){
+	window.onbeforeunload = confirmOnPageExit; // maybe use remove and add event listner
+}
+// Turn it off - remove the function entirely
+var allowBackExit=function(){
+	window.onbeforeunload = null;
+}
+// Object Helpers
+function objectLength(obj) {
+  var result = 0;
+  for(var prop in obj) {
+		if (obj.hasOwnProperty(prop)) { 
+			result++;
+		}
+  }
+  return result;
+}
+var objectProperties=function(obj) {
+    var result = [];
+    for(var prop in obj) {
+        if (obj.hasOwnProperty(prop)) {result.push(prop);}
+   }
+   return result;
+}
+// STRING UTILS ///////////////////////////////////
+function pad_string(val, digits, pad_char){
+    var val_str = val + "", pad_str=""
+    if(val_str.length < digits){
+    	for(var i=digits-1;i>0;i--)pad_str+=pad_char
+        return pad_str + val_str;
+   }else
+        return val_str;
+}
+
+// responsive
+var avoid_scrolling=function(event){
+        event.preventDefault();
+}
+var prevent_scrolling=function(){
+    document.body.addEventListener('touchmove', avoid_scrolling, false);
+}
+var allow_scrolling=function(){
+    document.body.removeEventListener('touchmove', avoid_scrolling);
+}
+
+// avoid 300ms delay on touch...
+var clickOrTouch = (('ontouchend' in window)) ? 'touchend' : 'click';
+
+// add controlled click effect on click
+var add_click_fancy=function(id,f,delay){
+    document.getElementById(id).addEventListener(clickOrTouch,function(event){click_fancy(event,f,delay);});
+}
+
+var click_fancy=function(event,f,delay){
+    if(typeof(delay)==='undefined')
+        delay=150; // default delay
+    if(typeof(f)==='undefined' || typeof(f) !== 'function' )
+        throw new Error('cognitionis click_fancy: f is undefined or not a function');
+    event.stopPropagation(); //Make all touch events stop
+    setTimeout(function(){f();},delay);
+}
+
+// canvas SPA access
+var canvas_zone_vcentered=document.getElementById('zone_canvas_vcentered');
+
+// HAMBURGER MENU SPA
+var hamburger_menu=document.getElementById('hamburger_menu');
+var hamburger_menu_content=document.getElementById('hamburger_menu_content');
+var hamburger_close_button=document.getElementById('hamburger_close');
+if(hamburger_close_button!=null){
+	hamburger_close_button.addEventListener(clickOrTouch, function(e) {
+			e.stopPropagation();
+			hamburger_menu.classList.remove('open');
+		});
+    /* TODO Review this so that if you clickOrTouch inside hamburger it does not close... */
+    var bodytag=document.getElementsByTagName('body')[0];
+    bodytag.addEventListener(clickOrTouch,function(){
+        hamburger_close(); 
+    });
+}
+if(hamburger_menu!=null){
+ 	hamburger_menu.addEventListener(clickOrTouch, function(e) {
+            //avoid closing menu when clicking inside
+			e.stopPropagation();
+		});   
+}
+var hamburger_close=function(){
+	hamburger_menu.classList.remove('open');
+}
+var hamburger_toggle=function(e){
+    if(e==undefined) e=window.event;
+	e.stopPropagation();
+	hamburger_menu.classList.toggle('open');
+}
+
+
+/*
+function login_screen(){
+    console.log('login_screen');
+	canvas_zone_vcentered.innerHTML='\
+    <br /> \
+    Select login type<br />\
+	<img id="signinButton" src="sign-in-with-google.png" />\
+    <br /><span class="button" id="anonymous_login">or Anonymous</span>\
+    <br /><br /><button id="go-back" class="minibutton go-back" style="positin:">&lt;</button>'
+    add_click_fancy("signinButton",toggleSignIn); 
+    add_click_fancy("anonymous_login",function(){
+        console.log("anonymous");
+        firebase.auth().signInAnonymously().catch(function(error) {});
+    });
+    add_click_fancy("go-back",menu_screen); 
+    //<br /><br /><span class="button" onclick="help_screen()">game details</span>
+}
+
+function toggleSignIn() {
+    if (!firebase.auth().currentUser) {
+        var provider = new firebase.auth.GoogleAuthProvider();
+        provider.addScope('https://www.googleapis.com/auth/plus.login');
+        firebase.auth().signInWithRedirect(provider); // alternative WithPopup(provider)
+        canvas_zone_vcentered="signin in...";
+    }else{
+        alert('error: already logged in with google');
+    }
+    document.getElementById('signinButton').disabled = true;
+}
+
+function gdisconnect(){
+	hamburger_close();
+    firebase.auth().signOut();
+    canvas_zone_vcentered.innerHTML=' signing out from google...';
+}*/
+
+
+function menu_screen(){
+	allowBackExit();
+    console.log('menu screen: '+user_data.email);
+    canvas_zone_vcentered.innerHTML='<b style="padding-top:10px;color:orange;display:block">¿When will the Bitcoin Bubble Burst?</b> \
+    <br />Feeling like Nostradamus? &nbsp; <span class="button" onclick="add_prediction_form()">vote</span>&nbsp;<span class="button" onclick="help_screen()">details</span><br /><br />\
+    <table style="width:100%;padding-top:10px;">\
+    <tr><th style="width:30%;color:orange;">Date</th><th style="width:40%;color:orange">TOP5 Votes</th><th style="width:30%;color:orange;">Reasons</th></tr> \
+    <tr><td>'+bbb.top1.date+'</td><td><div style="width:100%;background:black;text-align:left;"><div style="width:'+bbb.top1.votesp+'%;background:red;display:inline-block;">&nbsp;</div>&nbsp;'+bbb.top1.votesp+'%</div></td> <td><span class="button" onclick="why_screen(bbb.top1.date,bbb.top1.reason,bbb.top1.votes)">why</span></td></tr> \
+    <tr><td>'+bbb.top2.date+'</td><td><div style="width:100%;background:black;text-align:left;"><div style="width:'+bbb.top2.votesp+'%;background:red;display:inline-block;">&nbsp;</div>&nbsp;'+bbb.top2.votesp+'%</div></td> <td><span class="button" onclick="why_screen(bbb.top2.date,bbb.top2.reason,bbb.top2.votes)">why</span></td></tr> \
+    <tr><td>'+bbb.top3.date+'</td><td><div style="width:100%;background:black;text-align:left;"><div style="width:'+bbb.top3.votesp+'%;background:red;display:inline-block;">&nbsp;</div>&nbsp;'+bbb.top3.votesp+'%</div></td> <td><span class="button" onclick="why_screen(bbb.top3.date,bbb.top3.reason,bbb.top3.votes)">why</span></td></tr> \
+    <tr><td>'+bbb.top4.date+'</td><td><div style="width:100%;background:black;text-align:left;"><div style="width:'+bbb.top4.votesp+'%;background:red;display:inline-block;">&nbsp;</div>&nbsp;'+bbb.top4.votesp+'%</div></td> <td><span class="button" onclick="why_screen(bbb.top4.date,bbb.top4.reason,bbb.top4.votes)">why</span></td></tr> \
+    <tr><td>'+bbb.top5.date+'</td><td><div style="width:100%;background:black;text-align:left;"><div style="width:'+bbb.top5.votesp+'%;background:red;display:inline-block;">&nbsp;</div>&nbsp;'+bbb.top5.votesp+'%</div></td> <td><span class="button" onclick="why_screen(bbb.top5.date,bbb.top5.reason,bbb.top5.votes)">why</span></td></tr> \
+    </table> <br /> Last update: <span>'+bbb.last_update+'</span> &nbsp;Total votes: <span>'+bbb.total_votes+'</span> <br /><img src="wbbb.jpg" style="margin-top:2px;width:100px;" />';  //<img src="'+user_data.photoURL+'" />';
+}
+
+function help_screen(reasons){
+    canvas_zone_vcentered.innerHTML='<b style="padding-top:10px;color:orange;display:block">¿When will the Bitcoin Bubble Burst?</b> \
+    <p style="text-align:justify;padding: 0 8px;color:#dcb;">Blockchain is here to stay, but will bitcoin stay? This is a fun exercise of colletcive intelligence to guess <i>when</i> and <i>why</i> an apparently value-less asset in a hot-bubble could crash (or not).\
+    The rules:</p> \
+    <ul style="text-align:left;color:#dcb;">\
+    <li>What is crashing? value drops below $100 or drops -80% in one day</li>\
+    <li>Each user can make 2 predictions, if they fail, they can retry after a month</li>\
+    </ul> \
+    <p style="color:#dcb;">Will you be the next Nostradamus? :)<br />\
+    Good luck with your predictions and have fun!</p>\
+    <img src="wbbb.jpg" /><br /><button id="go-back" class="minibutton go-back" style="positin:">&lt;</button>';
+    document.getElementById("go-back").addEventListener(clickOrTouch,function(){menu_screen();}); 
+
+}
+
+function why_screen(date,reasons,votes){
+    canvas_zone_vcentered.innerHTML='<b style="padding-top:10px;color:orange;display:block">Reasons</b>\<br /> &nbsp; <br />  \
+    <p style="padding:0 8px;">Bitcoin will fail on <span style="color:orange">'+date+'</span> because of <span style="color:orange">'+reasons+'</span>.<br /><br />votes: '+votes+'</p><br /><br /><button id="go-back" class="minibutton go-back" style="positin:">&lt;</button>';
+    document.getElementById("go-back").addEventListener(clickOrTouch,function(){menu_screen();}); 
+
+}
+
+
+ 
+function add_prediction_form(){
+    if(user_data.hasOwnProperty('predictions')){ 
+        var predictions_arr=objectProperties(user_data.predictions);
+        if(predictions_arr.length>=2 && user_data.email!="hectorlm1983@gmail.com"){
+            alert('U already have 2 predictions, which cannot be modified unless they fail and a month passes. Be patient :-)');
+            return;
+        }
+    }
+    console.log('add prediction form: '+user_data.email);
+    canvas_zone_vcentered.innerHTML='<b style="padding-top:10px;color:orange;display:block">Add prediction</b><br /><br />\
+    <form style="text-align:center;">\
+    <table style="display:inline;">\
+    <tr><td><label>Date:&nbsp;</label></td><td style="text-align:left"><input id="my_date" type="text" value="yyyy-mm-dd" /> (or "never")<td></tr>\
+    <tr><td><label>Reason:&nbsp;</label></td><td style="text-align:left"><input id="my_reason" type="text" maxlength="15" value="why?" /> (15 chars)<td></tr>\
+    </table>\
+    </form>\
+    <br />\
+    <div class="button" id="add">add</div>\
+    <br /><button id="go-back" class="minibutton go-back">&lt;</button>'; 
+    document.getElementById("go-back").addEventListener(clickOrTouch,function(){menu_screen();}); 
+    document.getElementById("add").addEventListener(clickOrTouch,function(){add_prediction_firebase();});
+}
+
+function add_prediction_firebase(){
+    //upload and go back to user screen once done
+    var my_date=document.getElementById("my_date").value.trim().toLowerCase();
+    console.log(my_date);
+    var my_reason=document.getElementById("my_reason").value.trim().toLowerCase();
+    if(my_reason=="future") my_reason="futures";
+    if(my_reason=="gov" || my_reason=="government" || my_reason=="regulation") my_reason="regulations";
+    
+    // validate date or alert+return;
+    if(my_date!="never" && !my_date.match(/^[0-9]{4}-(0[1-9]|1[0-2])-(3[01]|[12][0-9]|0[1-9])$/)){ 
+        alert("date must be 'never' or have yyyy-mm-dd format");
+        return; 
+    }
+    canvas_zone_vcentered.innerHTML='adding...';
+    firebase.database().ref('/predictions-a/').once('value').then(function(snapshot) {
+        their_data=snapshot.val();
+        var their_date_data=their_data[my_date];
+        console.log(their_date_data);
+        var votes=1;
+        var their_reason=my_reason;
+        // gather info if exists
+        if(typeof(their_date_data)!='undefined' && their_date_data!=null && their_date_data.hasOwnProperty('votes')){
+            votes=their_date_data.votes + 1;
+            //votesp=votes/
+            if(their_date_data.reason.indexOf(my_reason)==-1) their_reason=their_date_data.reason+', '+my_reason;
+            else their_reason=their_date_data.reason;
+            my_reason=their_reason;
+        }
+        their_date_data={
+            date: my_date,
+            reason: their_reason,
+            votes: votes
+        }
+        their_data[my_date]=their_date_data; // put it back
+        var updates = {}; 
+        updates['/predictions-a/' + my_date] = their_date_data;
+        if(!user_data.hasOwnProperty('predictions')) user_data.predictions={};
+        user_data.predictions[my_date]={
+            date: my_date,
+            reason: their_reason
+        };
+        var promise=firebase.database().ref().update(updates); // returns a promise...
+        promise.then(function(){
+            get_bbb_from_data()
+            menu_screen();
+        });
+    });
+}
+
+
+
+
+
+
+function get_bbb_from_data(){
+    // in the future
+    //function valuesToArray(obj) {
+    //  return Object.keys(obj).map(function (key) { return obj[key]; });
+    //}
+    function compare(a,b) {
+      if (a.votes < b.votes)
+        return 1;
+      if (a.votes > b.votes)
+        return -1;
+      return 0;
+    }    
+    bbb={total_votes:0};
+    //bbb={total_votes:5,    top1:{        date: '2018-07-01',        votes: 30, votesp: 30,        reason: ['low interest']    },    top2:{        date: '2018-02-01',        votes: 25, votesp: 25,        reason: ['cme futures deadline']    },    top3:{        date: '2018-03-01',        votes: 20, votesp: 20,        reason: ['futures']    },    top4:{        date: '2018-04-01',        votes: 5, votesp: 5,        reason: ['a','b']    },    top5:{        date: 'never',        votes: 2, votesp: 2,        reason: ['rocks']    },   last_update:'2018-01-20'};
+    var predictions_arr=[];
+    var prediction_keys_arr=objectProperties(their_data);
+    for (var i=0;i<prediction_keys_arr.length;i++){
+        console.log(their_data[prediction_keys_arr[i]].date+' '+their_data[prediction_keys_arr[i]].votes);
+        bbb.total_votes+=their_data[prediction_keys_arr[i]].votes;
+        predictions_arr.push(their_data[prediction_keys_arr[i]])
+    }
+    predictions_arr.sort(compare);
+    console.log(predictions_arr);
+    for(var i=0;i<5;i++){
+        console.log(predictions_arr[i].votes);
+        predictions_arr[i].votesp=Math.floor((predictions_arr[i].votes*100)/bbb.total_votes);
+        bbb['top'+(i+1)]=predictions_arr[i];
+    }
+	var timestamp=new Date();
+	var timestamp_str=timestamp.getFullYear()+"-"+
+		pad_string((timestamp.getMonth()+1),2,"0") + "-" + pad_string(timestamp.getDate(),2,"0") + " " +
+		 pad_string(timestamp.getHours(),2,"0") + ":"  + pad_string(timestamp.getMinutes(),2,"0") + 
+			":"  + pad_string(timestamp.getSeconds(),2,"0");
+    bbb.last_update=timestamp_str;
+
+}
+
+
+// load data
+var bbb={};
+var their_data={};
+firebase.database().ref('/predictions-a/').once('value').then(function(snapshot) {
+    //var bbb={total_votes:5,    top1:{        date: '2018-07-01',        votes: 30, votesp: 30,        reason: ['low interest']    },    top2:{        date: '2018-02-01',        votes: 25, votesp: 25,        reason: ['cme futures deadline']    },    top3:{        date: '2018-03-01',        votes: 20, votesp: 20,        reason: ['futures']    },    top4:{        date: '2018-04-01',        votes: 5, votesp: 5,        reason: ['a','b']    },    top5:{        date: 'never',        votes: 2, votesp: 2,        reason: ['rocks']    },   last_update:'2018-01-20'};
+    their_data=snapshot.val();
+    get_bbb_from_data();
+    hamburger_menu_content.innerHTML='<ul><li><a href="#" onclick="hamburger_close();help_screen()">details</a></li><li><a href="#" onclick="hamburger_close();add_prediction_form()">vote</a></li></ul>';
+    user_data={displayName:''};
+    menu_screen();
+});
+
+if(debug){alert('main script end');}
+
+</script>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
+</body>
+
+</html>

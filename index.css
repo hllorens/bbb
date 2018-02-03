@@ -1,0 +1,183 @@
+/* reset */
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+}
+html{margin:0; padding:0; background: #111;}
+body{margin:0 auto; padding:0; font:normal 20px Arial, sans-serif; color:#333; width:100%; /* font big enough e.g., 28px */
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+	/*overflow-x:hidden;*/ /* cuts content to avoid horizontal scrolling */ 
+    /*overflow-y:hidden;*/ /* cuts content to avoid vertical scrolling*/
+}
+img{border:none;}
+a{text-decoration:none;}
+a:hover{text-decoration:underline;}
+
+
+/* cognitionis responsive */
+img, embed, object, video {max-width: 100%;} /* avoid low quality */
+nav a, button {min-width:48px;min-height:48px;cursor: pointer; display:inline-block;} /* ensure big enough for finger */
+
+#page{
+	width:100%;  min-width:320px;   /*max-width:1000px; bad to show scrolls*/
+	position: absolute; bottom:0px; top:0px; left:0px; right:0px;
+	background-color:#111;
+	margin: 0 auto;
+}
+
+#header{display:block;position:absolute;top:0px; height:48px;width:100%;background-color:#111} /*#711, overflow:hidden;*/
+#header h1{font-size: 22px; margin: 5px; color: #eee;}
+#zone_canvas{position:absolute; overflow-y:hidden; background:#111;color:#eee;top:48px; bottom:1%; width:100%;} /* overflow hidden removes scrolls  overflow-x:hidden;overflow-y:visible;*/
+#signinButton{cursor: pointer;}
+
+.button{
+    border:2px solid orange;
+    color:orange;
+    cursor: pointer;
+    padding: 3px 6px;
+    display:inline-block;
+}
+
+button:active {
+  box-shadow: 2px 8px 4px -6px rgba(0, 0, 0, 0.8);
+  transform: translateY(3px);
+}
+
+/* use material design? */
+button.go-back{
+    color:orange;
+    border-radius:  50px; /* 50px makes it circle */
+    font-weight: bold;
+	padding: 5px 12px;
+    box-sizing: border-box;
+    border: solid 4px orange;
+    -webkit-align-self: center;
+      -ms-flex-item-align: center;
+          align-self: center;
+    background: transparent;
+    margin: 8px 4px;
+    -webkit-transition: all .5s ease;
+    transition: all .5s ease;
+    font-size: 30px; 
+    letter-spacing: 1px;
+    outline: none;
+    box-shadow: 2px 8px 4px -6px rgba(0, 0, 0, 0.3);
+}
+
+.vertical-center-container {
+    display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    text-align:center;
+}
+.vertical-center-content {
+    display: table-cell;
+    /*vertical-align: middle; not for this web   */
+}
+
+#header_basic{
+    float:left;
+    height:40px; /* required for IE, otherwise height is auto and it is more or 0 */
+}
+#header_text{
+    color: orange; 
+}
+/*#header_text:hover{
+	cursor:pointer;
+}*/ 
+
+/*.autocomplete-suggestions {
+    text-align: left; cursor: default; border: 1px solid #ccc; border-top: 0; background: #fff; box-shadow: -1px 1px 3px rgba(0,0,0,.1);
+    position: absolute; display: none; z-index: 9999; max-height: 254px; overflow: hidden; overflow-y: auto; box-sizing: border-box;
+}
+.autocomplete-suggestion { position: relative; padding: 0 .6em; line-height: 23px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 1.02em; color: #333; }
+.autocomplete-suggestion b { font-weight: normal; color: #1f8dd6; }
+.autocomplete-suggestion.selected { background: #f0f0f0; }
+*/
+/*Galaxy S4  dips=360x640px, iphone 320x480px */
+@media screen and (max-width: 650px) {
+	#header{height:48px;}
+	#zone_canvas{top:48px;}
+   	#h1{font-size:14px;}
+	#zone_canvas{bottom:0;}
+   	body{font-size:14px;}
+}
+
+/* Small Landscape (e.g., Galaxy S4)*/
+@media screen and (max-height: 400px) and (min-width: 420px) {
+	#header{height:42px;}
+	#zone_canvas{top:42px;}
+	#h1{font-size:14px;}
+	#zone_canvas{bottom:0;}
+	body{font-size:14px;}
+}
+
+
+/* --------------------------------------------------------------------------*/
+/* HAMBURGER */
+a#hamburger_icon svg {
+	fill: #eee;
+	width: 40px;
+}
+#hamburger_icon{
+	margin: 0 0 0 14px;
+}
+#hamburger_icon:hover{
+	cursor:pointer;
+}
+
+.hamburger_menu {
+	width: 300px;
+	background-color:#000;
+	color:#fff;
+	position: absolute;
+	-webkit-transform: translate(-300px, 0);
+	transform: translate(-300px, 0);
+	transition: transform 0.3s ease;
+}
+.hamburger_menu.open {
+	-webkit-transform: translate(0, 0);
+	transform: translate(0, 0);
+    padding-left: 5px; /*not in hamburger_menu because it shows a bit in the width */
+}
+
+
+.hamburger_menu ul li a {
+    color:#eee;
+}
+
+a.boxclose{
+    float:right;
+    margin-top:10px;
+    margin-right:10px;
+    cursor:pointer;
+    color: #fff;
+    /*border: 1px solid #AEAEAE;*/
+    border-radius: 30px;
+    background: #605F61;
+    font-size: 31px;
+    font-weight: bold;
+    display: inline-block;
+    /*line-height: 0px;*/
+	text-align: center;
+    padding: 8px 4px 0px 4px;
+    min-width:48px;
+    min-height:48px;
+}
+.boxclose:before {
+    content: "X";
+}
+a.boxclose:hover {
+	text-decoration:none;
+}
+
+.small-text{
+    font-size:10px;
+    margin:0;
+    padding: 2px 5px;
+}
+
+
+
