@@ -35,6 +35,17 @@
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KMB8JJR"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
+<!-- Load Facebook SDK for JavaScript -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.12&appId=374891162984254&autoLogAppEvents=1';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<!-- End Facebook SDK -->
+
 <div id="page">
 	<div id="header">
     <div id="header_basic">
@@ -248,7 +259,8 @@ function menu_screen(){
     <tr><td>'+bbb.top4.date+'</td><td><div style="width:100%;background:black;text-align:left;"><div style="width:'+bbb.top4.votesp+'%;background:red;display:inline-block;">&nbsp;</div>&nbsp;'+bbb.top4.votesp+'%</div></td> <td><span class="button" onclick="why_screen(bbb.top4.date,bbb.top4.reason,bbb.top4.votes)">why</span></td></tr> \
     <tr><td>'+bbb.top5.date+'</td><td><div style="width:100%;background:black;text-align:left;"><div style="width:'+bbb.top5.votesp+'%;background:red;display:inline-block;">&nbsp;</div>&nbsp;'+bbb.top5.votesp+'%</div></td> <td><span class="button" onclick="why_screen(bbb.top5.date,bbb.top5.reason,bbb.top5.votes)">why</span></td></tr> \
     </table> <br /> Last update: <span>'+bbb.last_update+'</span> &nbsp;Total votes: <span>'+bbb.total_votes+'</span> <br /><img src="wbbb.jpg" style="margin-top:2px;width:100px;" />\
-    <a href="https://twitter.com/share?ref_src=http://when-will-bitcoin-price-crash.com&text=When%20will%20bitcoin%20price%20crash%3F%20--%20&hashtags=bitcoin-price-crash&url=http://when-will-bitcoin-price-crash.com" class="twitter-share-button" onclick="window.open(this.href);return false;">Tweet</a>';  
+    <a href="https://twitter.com/share?ref_src=http://when-will-bitcoin-price-crash.com&text=When%20will%20bitcoin%20price%20crash%3F%20--%20&hashtags=bitcoin-price-crash&url=http://when-will-bitcoin-price-crash.com" class="twitter-share-button" onclick="window.open(this.href);return false;">Tweet</a>\
+    <div class="fb-share-button" data-href="http://when-will-bitcoin-price-crash.com" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwhen-will-bitcoin-price-crash.com%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>';  
     //<img src="'+user_data.photoURL+'" />';
     window.twttr = (function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0],
