@@ -50,7 +50,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
          data-ad-slot="1004680864"
          data-ad-format="auto"></ins>
 		<div class="vertical-center-container">
-			<div id="zone_canvas_vcentered" class="vertical-center-content">...loading...</div>
+			<div id="zone_canvas_vcentered" class="vertical-center-content">...loading...</div>            
         </div>
 
 	</div>
@@ -247,7 +247,25 @@ function menu_screen(){
     <tr><td>'+bbb.top3.date+'</td><td><div style="width:100%;background:black;text-align:left;"><div style="width:'+bbb.top3.votesp+'%;background:red;display:inline-block;">&nbsp;</div>&nbsp;'+bbb.top3.votesp+'%</div></td> <td><span class="button" onclick="why_screen(bbb.top3.date,bbb.top3.reason,bbb.top3.votes)">why</span></td></tr> \
     <tr><td>'+bbb.top4.date+'</td><td><div style="width:100%;background:black;text-align:left;"><div style="width:'+bbb.top4.votesp+'%;background:red;display:inline-block;">&nbsp;</div>&nbsp;'+bbb.top4.votesp+'%</div></td> <td><span class="button" onclick="why_screen(bbb.top4.date,bbb.top4.reason,bbb.top4.votes)">why</span></td></tr> \
     <tr><td>'+bbb.top5.date+'</td><td><div style="width:100%;background:black;text-align:left;"><div style="width:'+bbb.top5.votesp+'%;background:red;display:inline-block;">&nbsp;</div>&nbsp;'+bbb.top5.votesp+'%</div></td> <td><span class="button" onclick="why_screen(bbb.top5.date,bbb.top5.reason,bbb.top5.votes)">why</span></td></tr> \
-    </table> <br /> Last update: <span>'+bbb.last_update+'</span> &nbsp;Total votes: <span>'+bbb.total_votes+'</span> <br /><img src="wbbb.jpg" style="margin-top:2px;width:100px;" />';  //<img src="'+user_data.photoURL+'" />';
+    </table> <br /> Last update: <span>'+bbb.last_update+'</span> &nbsp;Total votes: <span>'+bbb.total_votes+'</span> <br /><img src="wbbb.jpg" style="margin-top:2px;width:100px;" />\
+    <a href="https://twitter.com/share?ref_src=http://when-will-bitcoin-price-crash.com&text=When%20will%20bitcoin%20price%20crash%3F%20--%20&hashtags=bitcoin-price-crash&url=http://when-will-bitcoin-price-crash.com" class="twitter-share-button" onclick="window.open(this.href);return false;">Tweet</a>';  
+    //<img src="'+user_data.photoURL+'" />';
+    window.twttr = (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {};
+      if (d.getElementById(id)) return t;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://platform.twitter.com/widgets.js";
+      fjs.parentNode.insertBefore(js, fjs);
+
+      t._e = [];
+      t.ready = function(f) {
+        t._e.push(f);
+      };
+
+      return t;
+    }(document, "script", "twitter-wjs"));
 }
 
 function help_screen(reasons){
@@ -411,6 +429,23 @@ if(debug){alert('main script end');}
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
+<!-- no cal
+<script>window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));</script>-->
 
 </body>
 
